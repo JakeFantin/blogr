@@ -51,3 +51,9 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
         files: ./coverage/coverage.xml
         fail_ci_if_error: true
+    - name: Code Climate Coverage
+      uses: paambaati/codeclimate-action@v3.0.0
+      env:
+        CC_TEST_REPORTER_ID: 76c036d2bc8b266abe791f097b6f31b215aca1b0079ab4b7d5e67430d7cfeaaa
+      with:
+        coverageLocations: ${{github.workspace}}/coverage/coverage.xml:cobertura
