@@ -44,7 +44,7 @@ jobs:
         PGHOST: localhost
         PGUSER: postgres
         PGPASSWORD: postgres
-      run: bin/rails rspec
+      run: bin/rails spec
     - name: Upload Coverage Reports
       uses: codecov/codecov-action@v2
       with:
