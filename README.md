@@ -1,4 +1,5 @@
 ![CI Pipeline](https://github.com/JakeFantin/blogr/actions/workflows/ci_pipeline.yml/badge.svg)
+[![codecov](https://codecov.io/gh/JakeFantin/blogr/branch/main/graph/badge.svg?token=BBI0HN44UU)](https://codecov.io/gh/JakeFantin/blogr)
 
 # README
 

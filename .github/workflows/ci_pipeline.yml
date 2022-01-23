@@ -41,3 +41,5 @@ jobs:
         bin/rails db:migrate
     - name: Run tests
       run: bundle exec rspec
+    - name: Upload Coverage Reports
+      uses: codecov/codecov-action@v2
