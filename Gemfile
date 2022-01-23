@@ -40,6 +40,8 @@ gem 'simplecov', require: false, group: :test
 
 gem 'codecov', :require => false, :group => :test
 
+gem 'simplecov-cobertura'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 

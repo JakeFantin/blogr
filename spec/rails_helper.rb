@@ -1,11 +1,9 @@
 require 'simplecov'
 SimpleCov.start 'rails'
 
-#conditionally formating of simplecov report
-if ENV['CI'] == true
-  require 'codecov'
-  SimpleCov.formatter = SimpleCov::Formatter::Codecov
-end
+require 'simplecov-cobertura'
+SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
