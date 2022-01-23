@@ -45,4 +45,7 @@ jobs:
       uses: codecov/codecov-action@v2
       with:
         token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-        files: ./coverage/codecov-result.json
+        files: | 
+          ./coverage/codecov-result.json
+          ./coverage/resultset.json
+        fail_ci_if_error: true
