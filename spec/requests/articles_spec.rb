@@ -16,10 +16,23 @@ RSpec.describe "Articles", type: :request do
   end
 
   describe "GET /new" do
-    it "returns http success" do
+    it "returns http status 200" do
       get "/articles/new"
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(200)
+      expect(response).to render_template(:new)
+    end
+  end
+
+  describe "GET /show" do
+    it "returns http status 200" do
+      article = Article.new(title: "Title", body: "This is a body.")
+      article.save();
+      get "/articles/#{article.id}"
+      expect(response).to have_http_status(200)
+      expect(response).to render_template(:show)
     end
   end
 
 end
+
+
