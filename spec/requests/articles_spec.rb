@@ -33,6 +33,16 @@ RSpec.describe "Articles", type: :request do
     end
   end
 
+  describe "POST /create" do
+    it "returns http status 200" do
+      post "/articles", :params => { :article => { :title => "Title", :body => "This is a body"} }
+      expect(response).to have_http_status(:redirect)
+      follow_redirect!
+
+      expect(response).to render_template(:show)
+    end
+  end
+
 end
 
 
