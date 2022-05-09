@@ -5,7 +5,14 @@ RSpec.describe "Articles", type: :request do
     it "returns http success" do
       get "/articles"
       expect(response).to have_http_status(:success)
+      expect(response).to render_template(:index)
     end
+    # TODO Build 404 page to redirect to;
+    # it "returns http failure" do
+    #   expect {
+    #     get "/rarticles"
+    #   }.to raise_error ActionController::RoutingError
+    # end
   end
 
   describe "GET /new" do
