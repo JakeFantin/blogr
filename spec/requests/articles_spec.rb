@@ -43,6 +43,35 @@ RSpec.describe "Articles", type: :request do
     end
   end
 
+  describe "GET /edit" do
+    it "returns http status 200" do
+      article = Article.new(title: "Title", body: "This is a body.")
+      article.save();
+      get "/articles/#{article.id}/edit"
+      expect(response).to have_http_status(200)
+      expect(response).to render_template(:edit)
+    end
+  end
+
+  describe "PUT /update" do
+    it "redirects to show on success" do
+      article = Article.new(title: "Title", body: "This is a body.")
+      article.save();
+      put "/articles/#{article.id}", :params => { :article => { :title => "Updated Title" }}
+      expect(response).to have_http_status(:redirect)
+      follow_redirect!
+
+      expect(response).to render_template(:show)
+    end
+
+    it "redirects to edit on failure" do
+      article = Article.new(title: "Title", body: "This is a body.")
+      article.save();
+      put "/articles/#{article.id}", :params => { :article => { :title => "Ti" }}
+      expect(response).to render_template(:edit)
+    end
+  end
+
 end
 
 
