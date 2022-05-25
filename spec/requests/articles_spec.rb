@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Articles", type: :request do
   describe "GET /" do
     it "returns http success" do
-      get "/articles"
+      get "/"
       expect(response).to have_http_status(:success)
       expect(response).to render_template(:index)
     end
@@ -69,6 +69,19 @@ RSpec.describe "Articles", type: :request do
       article.save();
       put "/articles/#{article.id}", :params => { :article => { :title => "Ti" }}
       expect(response).to render_template(:edit)
+    end
+  end
+
+  describe "DELETE /destroy" do
+    it "redirect to root on success" do
+      article = Article.new(title: "Title", body: "This is a body.")
+      article.save();
+      delete "/articles/#{article.id}"
+      # expect{Article.find(id: article.id)}.to raise_error(instance_of("ActiveRecord::RecordNotFound"))
+      expect(response).to have_http_status(:redirect)
+      follow_redirect!
+
+      expect(response).to render_template(:index)
     end
   end
 
