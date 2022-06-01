@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Articles", type: :request do
   describe "GET /" do
     it "returns http success" do
-      get "/"
+      get root_path
       expect(response).to have_http_status(:success)
       expect(response).to render_template(:index)
     end
@@ -17,7 +17,7 @@ RSpec.describe "Articles", type: :request do
 
   describe "GET /new" do
     it "returns http status 200" do
-      get "/articles/new"
+      get new_article_path
       expect(response).to have_http_status(200)
       expect(response).to render_template(:new)
     end
@@ -27,7 +27,7 @@ RSpec.describe "Articles", type: :request do
     it "returns http status 200" do
       article = Article.new(title: "Title", body: "This is a body.")
       article.save();
-      get "/articles/#{article.id}"
+      get article_path(article.id)
       expect(response).to have_http_status(200)
       expect(response).to render_template(:show)
     end
@@ -35,7 +35,7 @@ RSpec.describe "Articles", type: :request do
 
   describe "POST /create" do
     it "returns http status 200" do
-      post "/articles", :params => { :article => { :title => "Title", :body => "This is a body"} }
+      post articles_path, :params => { :article => { :title => "Title", :body => "This is a body"} }
       expect(response).to have_http_status(:redirect)
       follow_redirect!
 
@@ -47,7 +47,7 @@ RSpec.describe "Articles", type: :request do
     it "returns http status 200" do
       article = Article.new(title: "Title", body: "This is a body.")
       article.save();
-      get "/articles/#{article.id}/edit"
+      get edit_article_path(article.id)
       expect(response).to have_http_status(200)
       expect(response).to render_template(:edit)
     end
@@ -57,7 +57,7 @@ RSpec.describe "Articles", type: :request do
     it "redirects to show on success" do
       article = Article.new(title: "Title", body: "This is a body.")
       article.save();
-      put "/articles/#{article.id}", :params => { :article => { :title => "Updated Title" }}
+      put article_path(article.id), :params => { :article => { :title => "Updated Title" }}
       expect(response).to have_http_status(:redirect)
       follow_redirect!
 
@@ -67,7 +67,8 @@ RSpec.describe "Articles", type: :request do
     it "redirects to edit on failure" do
       article = Article.new(title: "Title", body: "This is a body.")
       article.save();
-      put "/articles/#{article.id}", :params => { :article => { :title => "Ti" }}
+      put article_path(article.id), :params => { :article => { :title => "Ti" }}
+      expect(response).to have_http_status(422)
       expect(response).to render_template(:edit)
     end
   end
@@ -76,8 +77,7 @@ RSpec.describe "Articles", type: :request do
     it "redirect to root on success" do
       article = Article.new(title: "Title", body: "This is a body.")
       article.save();
-      delete "/articles/#{article.id}"
-      # expect{Article.find(id: article.id)}.to raise_error(instance_of("ActiveRecord::RecordNotFound"))
+      expect { delete article_path(article) }.to change { Article.count }.by(-1)
       expect(response).to have_http_status(:redirect)
       follow_redirect!
 
