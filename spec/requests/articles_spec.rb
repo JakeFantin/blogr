@@ -25,8 +25,7 @@ RSpec.describe "Articles", type: :request do
 
   describe "GET /show" do
     it "returns http status 200" do
-      article = Article.new(title: "Title", body: "This is a body.")
-      article.save();
+      article = create(:article)
       get article_path(article.id)
       expect(response).to have_http_status(200)
       expect(response).to render_template(:show)
@@ -45,8 +44,7 @@ RSpec.describe "Articles", type: :request do
 
   describe "GET /edit" do
     it "returns http status 200" do
-      article = Article.new(title: "Title", body: "This is a body.")
-      article.save();
+      article = create(:article)
       get edit_article_path(article.id)
       expect(response).to have_http_status(200)
       expect(response).to render_template(:edit)
@@ -55,8 +53,7 @@ RSpec.describe "Articles", type: :request do
 
   describe "PUT /update" do
     it "redirects to show on success" do
-      article = Article.new(title: "Title", body: "This is a body.")
-      article.save();
+      article = create(:article)
       put article_path(article.id), :params => { :article => { :title => "Updated Title" }}
       expect(response).to have_http_status(:redirect)
       follow_redirect!
@@ -65,8 +62,7 @@ RSpec.describe "Articles", type: :request do
     end
 
     it "redirects to edit on failure" do
-      article = Article.new(title: "Title", body: "This is a body.")
-      article.save();
+      article = create(:article)
       put article_path(article.id), :params => { :article => { :title => "Ti" }}
       expect(response).to have_http_status(422)
       expect(response).to render_template(:edit)
@@ -75,8 +71,7 @@ RSpec.describe "Articles", type: :request do
 
   describe "DELETE /destroy" do
     it "redirect to root on success" do
-      article = Article.new(title: "Title", body: "This is a body.")
-      article.save();
+      article = create(:article)
       expect { delete article_path(article) }.to change { Article.count }.by(-1)
       expect(response).to have_http_status(:redirect)
       follow_redirect!
