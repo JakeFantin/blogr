@@ -1,8 +1,16 @@
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.all
+    @page_size = 16
+    @last_page = (Article.count / 16.0).ceil
+    if params[:page_number].to_i < 1
+      redirect_to "/articles/pages/1"
+    elsif params[:page_number].to_i > @last_page
+      redirect_to "/articles/pages/#{@last_page}"
+    end
+    @page_number = params[:page_number].to_i
+    @articles = Article.offset((@page_number - 1) * @page_size).limit(@page_size)
   end
-
+  
   def show
     @article = Article.find(params[:id])
   end
@@ -46,4 +54,9 @@ class ArticlesController < ApplicationController
     def article_params
       params.require(:article).permit(:title, :body)
     end
+
+  # private
+  #   def pagination_params
+  #     params.permit(:next, :prev, :first, :last)
+  #   end
 end
