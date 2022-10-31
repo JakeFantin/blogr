@@ -3,9 +3,43 @@
 <ul>
   <% @articles.each do |article| %>
 		<li>
+		<%# TODO: make a partial for articles %>
 			<%= link_to article.title, article %>
 		</li>
   <% end %>
 </ul>
 
 <%= link_to "New Article", new_article_path %>
+
+<ul>
+	<% if @page_number == 1 %>
+		<li>
+			First Page
+		</li>
+		<li>
+			Prev Page
+		</li>
+	<% else %>
+		<li>
+			<%= link_to "First Page", "/articles/pages/1" %>
+		</li>
+		<li>
+			<%= link_to "Prev Page", "/articles/pages/#{@page_number - 1}" %>
+		</li>
+	<% end %>
+	<% if @page_number == @last_page %>
+		<li>
+			Next Page
+		</li>
+		<li>
+			Last Page
+		</li>
+	<% else %>
+		<li>
+			<%= link_to "Next Page", "/articles/pages/#{@page_number + 1}" %>
+		</li>
+		<li>
+			<%= link_to "Last Page", "/articles/pages/#{@last_page}" %>
+		</li>
+	<% end %>
+</ul>

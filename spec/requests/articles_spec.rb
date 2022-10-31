@@ -4,8 +4,10 @@ RSpec.describe "Articles", type: :request do
   describe "GET /" do
     it "returns http success" do
       get root_path
-      expect(response).to have_http_status(:success)
-      expect(response).to render_template(:index)
+      expect(response).to have_http_status(:redirect)
+      follow_redirect!
+
+      expect(response).to render_template(assigns(:index))
     end
     # TODO Build 404 page to redirect to;
     # it "returns http failure" do
@@ -76,7 +78,7 @@ RSpec.describe "Articles", type: :request do
       expect(response).to have_http_status(:redirect)
       follow_redirect!
 
-      expect(response).to render_template(:index)
+      expect(response).to render_template(assigns(:index))
     end
   end
 
