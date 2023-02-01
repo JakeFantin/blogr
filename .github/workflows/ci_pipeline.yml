@@ -44,6 +44,10 @@ jobs:
         PGHOST: localhost
         PGUSER: postgres
         PGPASSWORD: postgres
+        ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY: ${{ secrets.ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY }}
+        ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY: ${{ secrets.ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY }}
+        ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT: ${{ secrets.ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT }}
+
       run: bin/rails spec
     - name: Upload Coverage Reports
       uses: codecov/codecov-action@v2
