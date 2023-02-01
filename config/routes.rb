@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   get 'articles/pages/:page_number', to: 'articles#index'
   
   resources :articles
+
+  resources :users
 end
