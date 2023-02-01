@@ -16,6 +16,10 @@ Rails.application.configure do
   # system, or in some way before deploying your code.
   config.eager_load = ENV["CI"].present?
 
+  config.active_record.encryption.primary_key = Rails.application.credentials[:active_record_encryption][:primary_key]
+  config.active_record.encryption.deterministic_key = Rails.application.credentials[:active_record_encryption][:deterministic_key]
+  config.active_record.encryption.key_derivation_salt = Rails.application.credentials[:active_record_encryption][:key_derivation_salt]
+
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
