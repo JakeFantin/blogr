@@ -23,4 +23,9 @@
   <div>
     <%= form.submit %>
   </div>
+
+  <script>
+    tinymce.remove('textarea')
+    tinymce.init({selector: 'textarea'})
+  </script>
 <% end %>
