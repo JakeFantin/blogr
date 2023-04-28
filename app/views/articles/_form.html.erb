@@ -14,7 +14,8 @@
 
   <div>
     <%= form.label :body %><br>
-    <%= form.text_area :body, rows: 5 %>
+    <%= form.text_area :body, id: 'tinymcething', rows: 5 %>
+    <%= tinymce %>
     <% article.errors.full_messages_for(:body).each do |message| %>
       <div><%= message %></div>
     <% end %>
@@ -25,7 +26,9 @@
   </div>
 
   <script>
-    tinymce.remove('textarea')
-    tinymce.init({selector: 'textarea'})
+    document.addEventListener('turbo:render', () => {
+      tinymce.remove('textarea')
+      tinymce.init({selector: '#tinymcething'})
+    })
   </script>
 <% end %>
